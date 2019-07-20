@@ -1,48 +1,25 @@
-#from flask import Flask, render_template
-#from flask_sqlalchemy import SQLAlchemy
-#app = Flask(__name__)
-#app.config['SQLALCHEMY_DATABASE_URI']= 'postgresql://postgres:minu2010@localhost/job'
-#db = SQLAlchemy(app)
-
-#class Link(db.Model):
-#    Sno = db.Column(db.Integer, promary_key=True)
- #   Companyname = db.Column(db.String(100))
-  #  JobDescription = db.Column(db.String(10000))
-   # JobLink = db.Column(db.String(200))
-
-
-#@app.route('/')
-#def home():
-   #c = conn.execute("select * from job")
-
-    #return render_template('view.html', datas = c.fetchall())
-
-#if __name__ =="__main__":
- #   app.run(debug=True)
-
-
-
-
-
-
-
 from flask import Flask, render_template
-import psycopg2
+from sqlalchemy import SQLAlchemy
 
+db = SQLAlchemy()
 app = Flask(__name__)
-conn = psycopg2.connect(
-            host = "localhost",
-            database = "job",
-            user = "postgres",
-            password = "minu")
+db.init_app(app)
+app.config['SQLALCHEMY_DATABASE_URI']=os.environ.get('DATABASE_URI')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
+class Jobs(db.Model):
+    sno=db.Column(db.Integer,primary_key=True)
+    company_name=db.Column(db.String(100))
+    job_description=db.Column(db.String(100000))
+    links=db.Column(db.String(200))
+
 
 
 @app.route('/')
 def home():
-    c = conn.cursor()
-    c.execute("select * from jobs")
+    c = jobs.query.all()
+    
 
-    return render_template('view.html', datas = c.fetchall())
+    return render_template('view.html', datas = c)
 
 if __name__ =='__main__':
     app.run(debug=True)
