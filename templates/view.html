@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>
+
+</title>
+</head>
+
+<body>
+<table>
+    <tr>
+        <th>
+            S.no 
+        </th>
+        <th>
+            CompanyName
+        </th>
+        <th>
+            JobDescription
+        </th>
+        <th>
+            JobLink
+        </th>
+        <td>
+            {% for data in datas %}
+                <tr>
+                    <td>
+                        {{data[0]}}
+                        
+                    </td>
+                    <td>
+                        {{data[1]}}
+                    </td>
+                    <td>
+                        {{data[2]}}
+                    </td>
+                    <td>
+                        {{data[3]}}
+                    </td>
+
+                </tr>
+            {% endfor %}    
+        </td>
+    </tr>
+</table>
+
+</body>
+
+</html>
