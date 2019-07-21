@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from sqlalchemy import SQLAlchemy
 
+
 db = SQLAlchemy()
 app = Flask(__name__)
 db.init_app(app)
@@ -16,7 +17,7 @@ class Jobs(db.Model):
 
 @app.route('/')
 def home():
-    c = jobs.query.all()
+    c = Jobs.query.all()
     
 
     return render_template('view.html', datas = c)
