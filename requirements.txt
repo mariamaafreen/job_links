@@ -1,3 +1,4 @@
 flask
 uwsgi
 Flask-SQLAlchemy
+psycopg2
